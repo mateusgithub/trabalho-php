@@ -75,7 +75,7 @@
 		    $this->alergias = $alergias;
 		}
 
-		public function getPronturario() {
+		public function getProntuario() {
 			return $this->pronturario;
 		}
 

@@ -1,13 +1,13 @@
 <?php
-	include_once 'Database.php';
-	include_once 'Paciente.php';
+	include_once '../dao/Database.php';
+	include_once '../model/Paciente.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
 	 	<title>Trabalho 3 - Cadastrar paciente</title>
 	</head>
 	<body>	
@@ -19,11 +19,8 @@
 			<h2>Cadastrar paciente</h2><hr>
 			<form id="formulario_paciente" action="" method="POST">
 				<?php 
-					if(isset($_SESSION['erro_cadastro'])) {
-						echo "<p style='color: red;'>".$_SESSION['erro_cadastro']."</p>";
-					} else {
-						echo "<p style='color: red;'></p>";
-					}
+					echo "<p class='mensagem-erro'>".$_SESSION['erro_cadastro_paciente']."</p>";
+					echo "<p class='mensagem-sucesso'>".$_SESSION['status_cadastro_paciente']."</p>";
 				?>
 
 				<p>CPF: <input type="text" name="cpf" maxlength="11" /> </p>
@@ -44,9 +41,11 @@
 		<?php
 
 			if(isset($_POST['salvar_paciente_btn'])) {
+				unset($_SESSION['status_cadastro_paciente']);
+
 				if(empty($_POST["cpf"])) {
-					$_SESSION['erro_cadastro'] = "Informe um CPF";
-					header("location:/cadastrar_paciente.php");
+					$_SESSION['erro_cadastro_paciente'] = "Informe um CPF";
+					header("location:cadastrar_paciente.php");
 				}
 
 				$paciente = new Paciente();
@@ -62,6 +61,8 @@
 				$paciente->setProntuario(htmlspecialchars($_POST["prontuario"]));
 
 				Database::salvarPaciente($paciente);
+
+				$_SESSION['status_cadastro_paciente'] = "Paciente ".$paciente->getCpf()." cadastrado com sucesso";
 			}
 		?>
 	</body>

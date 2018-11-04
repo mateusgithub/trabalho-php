@@ -1,5 +1,5 @@
 <?php
-	include_once 'Usuario.php';
+	include_once '../model/Usuario.php';
 
 	class Database {
 
@@ -82,11 +82,11 @@
 					   	tipo_sanguineo = '".$usuario->getTipoSanguineo()."',
 					   	alergias = '".$usuario->getAlergias()."',
 					   	plano_saude = '".$usuario->getPlanoSaude()."',
-					   	prontuario = '".$usuario->getPronturario()."'
+					   	prontuario = '".$usuario->getProntuario()."'
 					   		WHERE cpf = '".$usuario->getCpf()."'";
 				$conn->exec($sql);
 			} else {
-				$sql = "INSERT INTO paciente (cpf,nome_completo,data_aniversario,telefone,email,tipo_sanguineo,alergias,plano_saude,prontuario)VALUES('".$usuario->getCpf()."', '".$usuario->getNomeCompleto()."', '".$usuario->getDataAniversario()."', '".$usuario->getTelefone()."', '".$usuario->getEmail()."', '".$usuario->getTipoSanguineo()."', '".$usuario->getAlergias()."','".$usuario->getPlanoSaude()."', '".$usuario->getPronturario()."')";
+				$sql = "INSERT INTO paciente (cpf,nome_completo,data_aniversario,telefone,email,tipo_sanguineo,alergias,plano_saude,prontuario)VALUES('".$usuario->getCpf()."', '".$usuario->getNomeCompleto()."', '".$usuario->getDataAniversario()."', '".$usuario->getTelefone()."', '".$usuario->getEmail()."', '".$usuario->getTipoSanguineo()."', '".$usuario->getAlergias()."','".$usuario->getPlanoSaude()."', '".$usuario->getProntuario()."')";
 				$conn->exec($sql);
 			}
 		}
@@ -111,6 +111,60 @@
 				$sql = "INSERT INTO usuario (usuario, nome, cpf, senha, cargo) VALUES ('".$usuario->getUsuario()."', '".$usuario->getNome()."', '".$usuario->getCpf()."', '".$usuario->getSenha()."', 'medico')";
 				$conn->exec($sql);
 			}
+		}
+
+		public function listarPacientes() {
+			$conn = self::getConexao();
+
+			$result = $conn->query("SELECT * FROM paciente");	
+
+			$pacientes = array();
+
+			while($row = $result->fetch(PDO::FETCH_ASSOC)){
+				$paciente = new Paciente();
+				$paciente->setCpf($row['cpf']);
+				$paciente->setNomeCompleto($row['nome_completo']);
+				$paciente->setDataAniversario($row['data_aniversario']);
+				$paciente->setTelefone($row['telefone']);
+				$paciente->setEmail($row['email']);
+				$paciente->setTipoSanguineo($row['tipo_sanguineo']);
+				$paciente->setAlergias($row['alergias']);
+				$paciente->setPlanoSaude($row['plano_saude']);
+				$paciente->setProntuario($row['prontuario']);
+
+				array_push($pacientes, $paciente);
+			}
+
+			return $pacientes;
+		}
+
+		public function consultarPacientePorCpf($cpf) {
+			$conn = self::getConexao();
+
+			$result = $conn->query("SELECT * FROM paciente WHERE cpf = '".$cpf."'");	
+
+			$row = $result->fetch(PDO::FETCH_ASSOC);
+			
+			$paciente = new Paciente();
+			$paciente->setCpf($row['cpf']);
+			$paciente->setNomeCompleto($row['nome_completo']);
+			$paciente->setDataAniversario($row['data_aniversario']);
+			$paciente->setTelefone($row['telefone']);
+			$paciente->setEmail($row['email']);
+			$paciente->setTipoSanguineo($row['tipo_sanguineo']);
+			$paciente->setAlergias($row['alergias']);
+			$paciente->setPlanoSaude($row['plano_saude']);
+			$paciente->setProntuario($row['prontuario']);
+
+			return $paciente;
+		}
+
+		public function atualizarProntuarioPaciente($cpf, $prontuario) {
+			$conn = self::getConexao();
+
+			$sql = "UPDATE paciente SET prontuario = '".$prontuario."' WHERE cpf = '".$cpf."'";
+
+			$conn->exec($sql);
 		}
 
 	}

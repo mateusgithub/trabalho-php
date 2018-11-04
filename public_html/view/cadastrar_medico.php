@@ -1,13 +1,13 @@
 <?php
-	include_once 'Database.php';
-	include_once 'Paciente.php';
+	include_once '../dao/Database.php';
+	include_once '../model/Paciente.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
 	 	<title>Trabalho 3 - Cadastrar médico</title>
 	</head>
 	<body>	
@@ -19,8 +19,8 @@
 			<h2>Cadastrar médico</h2><hr>
 			<form id="formulario_medico" action="" method="POST">
 				<?php 
-					if(isset($_SESSION['erro_cadastro'])) {
-						echo "<p style='color: red;'>".$_SESSION['erro_cadastro']."</p>";
+					if(isset($_SESSION['erro_cadastro_medico'])) {
+						echo "<p style='color: red;'>".$_SESSION['erro_cadastro_medico']."</p>";
 					} else {
 						echo "<p style='color: red;'></p>";
 					}
@@ -39,9 +39,11 @@
 		<?php
 
 			if(isset($_POST['salvar_medico_btn'])) {
+				unset($_SESSION['erro_cadastro_medico']);
+
 				if(empty($_POST["cpf"])) {
-					$_SESSION['erro_cadastro'] = "Informe um CPF";
-					header("location:/cadastrar_medico.php");
+					$_SESSION['erro_cadastro_medico'] = "Informe um usuário";
+					header("location:cadastrar_medico.php");
 				}
 
 				$usuarioMedico = new Usuario();
