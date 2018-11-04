@@ -1,19 +1,22 @@
 <?php
+	include_once 'Database.php';
+	session_start();
+
 	if(isset($_POST['login_btn'])){
+		unset($_SESSION['erro_login']);
+		unset($_SESSION['erro_cadastro']);
+
 		$usuario = $_POST["usuario"];
 		$senha = $_POST["senha"];
-		
-		$conn = new PDO('mysql:host=localhost;dbname=test', 'root', 'root');
 
-		$sql = "SELECT COUNT(1) FROM usuario WHERE usuario = '".$usuario."' AND senha = '".$senha."'";
-		$result = $conn->prepare($sql);
-		$result->execute();
-		$count_rows = $result->fetchColumn();
-
-		if($count_rows > 0) {
-			echo "<h3>Logado</h3>";
+		//Se usuario encontrado
+		if(Database::validarLogin($usuario, $senha)) {
+			$usuarioLogado = Database::buscarUsuario($usuario);
+			$_SESSION['usuario_logado'] = serialize($usuarioLogado);
+			header("location:/home.php");
 		} else {
-			echo "<h3>Não Logado</h3>";
+			$_SESSION['erro_login'] = "Usuário e/ou senha incorretos";
+			header("location:/index.php");
 		}
 	}
 

@@ -1,3 +1,7 @@
+<?php
+	include_once 'Database.php';
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -8,28 +12,29 @@
 	 	<title>Trabalho 3</title>
 	</head>
 	<body>	
-		<div style="float: left;">
+		<div id="login_box">
 			<h1>Login</h1>
 			
 			<form action="login.php" method="POST">
 				<p>Usuário<p>
-				<input type="text" name="usuario">
+				<input class="input_login" type="text" name="usuario">
 
 				<p>Senha</p>
-				<input type="text" name="senha">
+				<input class="input_login" type="text" name="senha">
 
-				<p><input type="submit" value="Login" name="login_btn"></p>
+				<?php 
+					if(isset($_SESSION['erro_login'])) {
+						echo "<p style='color: red;'>".$_SESSION['erro_login']."</p>";
+					} else {
+						echo "<p style='color: red;'/>";
+					}
+				?>
+
+				<p><input class= "input_login" type="submit" value="Login" name="login_btn"></p>
 			</form>
 
 			<?php
-				$conn = new PDO('mysql:host=localhost;dbname=test', 'root', 'root');
-				$sql = "CREATE TABLE usuario (usuario varchar(50) NOT NULL PRIMARY KEY,
-						senha varchar(50) NOT NULL,
-						cargo smallint NOT NULL);";
-				$conn->exec($sql);
-
-				$sql = "INSERT INTO usuario (usuario, senha, cargo) VALUES ('admin', 'admin', 0)";
-				$conn->exec($sql);
+				Database::inicializarTabelaUsuario();
 			?>
 		</div>
 	</body>

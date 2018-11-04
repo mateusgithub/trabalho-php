@@ -1,3 +1,62 @@
+body div {
+	float: left;
+}
+
+#login_box {
+	padding: 0 10%;
+    width: 50%;
+    background-color: #eaeaea;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#login_box h1 {
+	text-align: center;
+}
+
+#conteudo_principal {
+	padding: 1%;
+	width: 70%;
+	background-color: #eaeaea;
+}
+
+#formulario_paciente input, textarea{
+	width: 100%;
+	margin: 2px;
+}
+
+.input_login {
+	width: 100%;
+}
+
 .messagem-erro {
 	color: red;
+}
+
+.menu-lateral 
+{
+    width: 25%;
+	float: left;
+	text-align: center;
+	margin-right: 10px;
+}
+
+.menu-lateral a {
+    display: block;
+    color: black;
+    background-color: #d5e6ff;
+    padding: 15px;
+}
+
+.menu-lateral a:hover {
+    background-color: #eff5ff;
+}
+
+.menu-lateral a.active {
+    background-color: #93beff;
+    color: white;
 }
