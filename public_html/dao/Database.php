@@ -1,15 +1,38 @@
 <?php
-	include_once '../model/Usuario.php';
+	if(!isset($_SESSION)) { 
+        session_start(); 
+    }
+	
+	require_once '../model/Usuario.php';
 
 	class Database {
 
 		private static $host = "localhost";
 		private static $user = "root";
 		private static $password = "root";
-		private static $database = "trabalho_php";
+		private static $database = "trabalho_php_si401";
 
-		public static function getConexao() {
+		private static function conectar() {
 			return new PDO("mysql:host=".self::$host.";dbname=".self::$database, self::$user, self::$password);
+		}
+		
+		private static function criarBanco() {
+			$connection = new PDO("mysql:host=".self::$host, self::$user, self::$password);
+
+			$connection->exec("CREATE DATABASE `".self::$database."`;
+					CREATE USER '".self::$user."'@'".self::$host."' IDENTIFIED BY '".self::$password."';
+					GRANT ALL ON `".self::$database."`.* TO '".self::$user."'@'".self::$host."';
+					FLUSH PRIVILEGES;");
+		}
+		
+		public static function getConexao() {
+			try {
+				return self::conectar();
+			}
+			catch(PDOException $e) {
+				self::criarBanco();
+				return self::conectar();
+			}
 		}
 
 		public static function inicializarTabelaUsuario() {
@@ -138,27 +161,6 @@
 			return $pacientes;
 		}
 
-		public function consultarPacientePorCpf($cpf) {
-			$conn = self::getConexao();
-
-			$result = $conn->query("SELECT * FROM paciente WHERE cpf = '".$cpf."'");	
-
-			$row = $result->fetch(PDO::FETCH_ASSOC);
-			
-			$paciente = new Paciente();
-			$paciente->setCpf($row['cpf']);
-			$paciente->setNomeCompleto($row['nome_completo']);
-			$paciente->setDataAniversario($row['data_aniversario']);
-			$paciente->setTelefone($row['telefone']);
-			$paciente->setEmail($row['email']);
-			$paciente->setTipoSanguineo($row['tipo_sanguineo']);
-			$paciente->setAlergias($row['alergias']);
-			$paciente->setPlanoSaude($row['plano_saude']);
-			$paciente->setProntuario($row['prontuario']);
-
-			return $paciente;
-		}
-
 		public function atualizarProntuarioPaciente($cpf, $prontuario) {
 			$conn = self::getConexao();
 
@@ -168,4 +170,3 @@
 		}
 
 	}
-?>

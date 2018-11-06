@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+	if(!isset($_SESSION)) { 
+        session_start(); 
+    }
+?><!DOCTYPE html>
 <html lang="pt-br">
 	<head>
 		<meta charset="utf-8">
@@ -8,12 +12,11 @@
 	</head>
 	<body>	
 		<?php
-			include 'menu_lateral.php';
+			require 'menu_lateral.php';
 		?>
 
 		<div id="conteudo_principal">
 			<?php
-				session_start();
 				$usuarioLogado = unserialize($_SESSION['usuario_logado']);
 				echo "<h2>Bem vindo, ".$usuarioLogado->getUsuario()."</h2><hr>";
 				echo "<p>Cargo: ".$usuarioLogado->getCargo()."</h2>";

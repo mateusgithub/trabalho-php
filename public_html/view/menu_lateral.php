@@ -1,7 +1,11 @@
+<?php
+	if(!isset($_SESSION)) { 
+        session_start(); 
+    }
+?>
 <div class="menu-lateral">
 	<?php
-		include_once '../model/Usuario.php';
-		session_start();
+		require_once '../model/Usuario.php';
 
 		if(isset($_SESSION['usuario_logado'])) {
 			$usuarioLogado = unserialize($_SESSION['usuario_logado']);
@@ -23,6 +27,6 @@
 			}
 		}
 
-		echo "<a href='../index.php' >Sair</a>";		
+		echo "<a href='../view/index.php' >Sair</a>";		
 	?>
 </div>

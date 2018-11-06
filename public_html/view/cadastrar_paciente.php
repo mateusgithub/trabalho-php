@@ -1,6 +1,10 @@
 <?php
-	include_once '../dao/Database.php';
-	include_once '../model/Paciente.php';
+	if(!isset($_SESSION)) { 
+        session_start(); 
+    }
+	
+	require_once '../dao/Database.php';
+	require_once '../model/Paciente.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -12,15 +16,19 @@
 	</head>
 	<body>	
 		<?php
-			include 'menu_lateral.php';
+			require 'menu_lateral.php';
 		?>
 
 		<div id="conteudo_principal">
 			<h2>Cadastrar paciente</h2><hr>
 			<form id="formulario_paciente" action="" method="POST">
-				<?php 
-					echo "<p class='mensagem-erro'>".$_SESSION['erro_cadastro_paciente']."</p>";
-					echo "<p class='mensagem-sucesso'>".$_SESSION['status_cadastro_paciente']."</p>";
+				<?php
+					if(isset($_SESSION['erro_cadastro_paciente'])) {
+						echo "<p class='mensagem-erro'>".$_SESSION['erro_cadastro_paciente']."</p>";
+					}
+					if(isset($_SESSION['status_cadastro_paciente'])) {
+						echo "<p class='mensagem-sucesso'>".$_SESSION['status_cadastro_paciente']."</p>";
+					}
 				?>
 
 				<p>CPF: <input type="text" name="cpf" maxlength="11" /> </p>

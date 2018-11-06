@@ -1,6 +1,9 @@
 <?php
-	include_once '../dao/Database.php';
-	session_start();
+	if(!isset($_SESSION)) { 
+        session_start(); 
+    }
+	
+	require_once '../dao/Database.php';
 
 	if(isset($_POST['login_btn'])){
 		unset($_SESSION['erro_login']);
@@ -16,8 +19,7 @@
 			header("location:../view/home.php");
 		} else {
 			$_SESSION['erro_login'] = "Usuário e/ou senha incorretos";
-			header("location:../index.php");
+			header("location:../view/index.php");
 		}
 	}
 
-?>

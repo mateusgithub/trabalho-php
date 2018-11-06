@@ -1,6 +1,10 @@
 <?php
-	include_once '../dao/Database.php';
-	include_once '../model/Paciente.php';
+	if(!isset($_SESSION)) { 
+        session_start(); 
+    }
+	
+	require_once '../dao/Database.php';
+	require_once '../model/Paciente.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -12,7 +16,7 @@
 	</head>
 	<body>	
 		<?php
-			include 'menu_lateral.php';
+			require 'menu_lateral.php';
 		?>
 
 		<div id="conteudo_principal">
