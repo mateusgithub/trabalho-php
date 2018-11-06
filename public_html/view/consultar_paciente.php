@@ -15,7 +15,15 @@
 	
 	$paciente = null;
 	if(!empty($cpf)) {
-		$paciente = PacienteDAO::consultarPacientePorCpf($_GET['cpf']);
+		$paciente = PacienteDAO::consultarPacientePorCpf($cpf);
+	}
+	
+	$statusAtualizarPaciente = "";
+	
+	if(isset($_POST['editar_paciente_btn']) && isset($_POST['prontuario']) && $paciente != null) {
+		Database::atualizarProntuarioPaciente($paciente->getCpf(), htmlspecialchars($_POST['prontuario']));
+
+		$statusAtualizarPaciente = 'Paciente atualizado com sucesso';
 	}
 ?>
 <!DOCTYPE html>
@@ -42,10 +50,8 @@
 			<br>
 
 			<?php 
-				if(isset($_SESSION['status_atualizar_paciente'])) {
-					echo "<p class='mensagem-sucesso'>".$_SESSION['status_atualizar_paciente']."</p>";
-	
-					unset($_SESSION['status_atualizar_paciente']);
+				if(!empty($statusAtualizarPaciente)) {
+					echo "<p class='mensagem-sucesso'>".$statusAtualizarPaciente."</p>";
 				}
 			?>
 
@@ -53,25 +59,25 @@
 			if($paciente != null) {
 			?>
 			<form id="formulario_editar_paciente" action="" method="POST">
-				<p>CPF: <input type="text" maxlength="11" value="<?php echo ($paciente !== null)?$paciente->getCpf():'';?>" disabled /> </p>
+				<p>CPF: <input type="text" maxlength="11" value="<?php echo $paciente->getCpf();?>" disabled /> </p>
 
-				<p>Nome completo: <input type="text" value="<?php echo ($paciente !== null)?$paciente->getNomeCompleto():'';?>" disabled /> </p>
+				<p>Nome completo: <input type="text" value="<?php echo $paciente->getNomeCompleto();?>" disabled /> </p>
 
-				<p>Data de aniversário: <input type="text" value="<?php echo ($paciente !== null)?$paciente->getDataAniversario():'';?>" disabled /> </p>
+				<p>Data de aniversário: <input type="text" value="<?php echo $paciente->getDataAniversario();?>" disabled /> </p>
 
-				<p>Telefone: <input type="text" value="<?php echo ($paciente !== null)?$paciente->getTelefone():'';?>" disabled /> </p>
+				<p>Telefone: <input type="text" value="<?php echo $paciente->getTelefone();?>" disabled /> </p>
 
-				<p>E-mail: <input type="text" value="<?php echo ($paciente !== null)?$paciente->getEmail():'';?>" disabled/> </p>
+				<p>E-mail: <input type="text" value="<?php echo $paciente->getEmail();?>" disabled/> </p>
 
-				<p>Tipo sanguíneo: <input type="text" value="<?php echo ($paciente !== null)?$paciente->getTipoSanguineo():'';?>" disabled /> </p>
+				<p>Tipo sanguíneo: <input type="text" value="<?php echo $paciente->getTipoSanguineo();?>" disabled /> </p>
 
-				<p>Alergias: <input type="text" value="<?php echo ($paciente !== null)?$paciente->getAlergias():'';?>" disabled /> </p>
+				<p>Alergias: <input type="text" value="<?php echo $paciente->getAlergias();?>" disabled /> </p>
 
-				<p>Plano de saúde: <input type="text" value="<?php echo ($paciente !== null)?$paciente->getPlanoSaude():'';?>" disabled /> </p>
+				<p>Plano de saúde: <input type="text" value="<?php echo $paciente->getPlanoSaude();?>" disabled /> </p>
 
-				<p>Prontuário: 
+				<p>Prontuário:
 					<textarea rows="5" cols="50" name="prontuario" ><?php
-						echo ($paciente !== null)? htmlspecialchars($paciente->getProntuario()) : '';
+						echo htmlspecialchars($paciente->getProntuario());
 					?></textarea>
 				</p>
 
@@ -79,16 +85,6 @@
 			</form>
 			<?php
 			}
-			?>
-			
-			<?php
-				if(isset($_POST['editar_paciente_btn']) && $paciente != null) {
-					Database::atualizarProntuarioPaciente($paciente->getCpf(), htmlspecialchars($_POST['prontuario']));
-
-					$_SESSION['status_atualizar_paciente'] = 'Paciente atualizado com sucesso';
-
-					header("location:consultar_paciente.php?cpf=".$paciente->getCpf());
-				}
 			?>
 		</div>
 	</body>

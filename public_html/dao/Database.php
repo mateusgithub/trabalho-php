@@ -88,32 +88,6 @@
 			return $dadosUsuario;
 		}
 
-		public static function salvarPaciente($usuario) {
-			$conn = self::getConexao();
-
-			$sql = "SELECT COUNT(1) FROM paciente WHERE cpf = '".$usuario->getCpf()."'";
-
-			$result = $conn->prepare($sql);
-			$result->execute();
-			$count_rows = $result->fetchColumn();
-
-			if ($count_rows > 0) {
-				$sql = "UPDATE paciente SET nome_completo = '".$usuario->getNomeCompleto()."',
-					   	data_aniversario = '".$usuario->getDataAniversario()."',
-					   	telefone = '".$usuario->getTelefone()."',
-					   	email = '".$usuario->getEmail()."',
-					   	tipo_sanguineo = '".$usuario->getTipoSanguineo()."',
-					   	alergias = '".$usuario->getAlergias()."',
-					   	plano_saude = '".$usuario->getPlanoSaude()."',
-					   	prontuario = '".$usuario->getProntuario()."'
-					   		WHERE cpf = '".$usuario->getCpf()."'";
-				$conn->exec($sql);
-			} else {
-				$sql = "INSERT INTO paciente (cpf,nome_completo,data_aniversario,telefone,email,tipo_sanguineo,alergias,plano_saude,prontuario)VALUES('".$usuario->getCpf()."', '".$usuario->getNomeCompleto()."', '".$usuario->getDataAniversario()."', '".$usuario->getTelefone()."', '".$usuario->getEmail()."', '".$usuario->getTipoSanguineo()."', '".$usuario->getAlergias()."','".$usuario->getPlanoSaude()."', '".$usuario->getProntuario()."')";
-				$conn->exec($sql);
-			}
-		}
-
 		public function salvarUsuarioMedico($usuario) {
 			$conn = self::getConexao();
 

@@ -5,6 +5,34 @@
 	
 	require_once '../dao/Database.php';
 	require_once '../model/Paciente.php';
+	require_once '../dao/PacienteDAO.php';
+	
+	$statusCadastroPaciente = "";
+	$erroCadastroPaciente = "";
+	
+	if(isset($_POST['salvar_paciente_btn'])) {
+		if(empty($_POST["cpf"])) {
+			$erroCadastroPaciente = "Informe um CPF";
+		}
+		else {
+			$paciente = new Paciente();
+			
+			$paciente->setCpf($_POST["cpf"]);
+			$paciente->setNomeCompleto($_POST["nome_completo"]);
+			$paciente->setDataAniversario($_POST["data_aniversario"]);
+			$paciente->setTelefone($_POST["telefone"]);
+			$paciente->setEmail($_POST["email"]);
+			$paciente->setTipoSanguineo($_POST["tipo_sanguineo"]);
+			$paciente->setAlergias($_POST["alergias"]);
+			$paciente->setPlanoSaude($_POST["plano_saude"]);
+			$paciente->setProntuario(htmlspecialchars($_POST["prontuario"]));
+
+			PacienteDAO::salvarPaciente($paciente);
+
+			$statusCadastroPaciente = "Paciente ".$paciente->getCpf()." cadastrado com sucesso";
+		}
+	}
+	
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -23,11 +51,11 @@
 			<h2>Cadastrar paciente</h2><hr>
 			<form id="formulario_paciente" action="" method="POST">
 				<?php
-					if(isset($_SESSION['erro_cadastro_paciente'])) {
-						echo "<p class='mensagem-erro'>".$_SESSION['erro_cadastro_paciente']."</p>";
+					if(!empty($erroCadastroPaciente)) {
+						echo "<p class='mensagem-erro'>".$erroCadastroPaciente."</p>";
 					}
-					if(isset($_SESSION['status_cadastro_paciente'])) {
-						echo "<p class='mensagem-sucesso'>".$_SESSION['status_cadastro_paciente']."</p>";
+					if(!empty($statusCadastroPaciente)) {
+						echo "<p class='mensagem-sucesso'>".$statusCadastroPaciente."</p>";
 					}
 				?>
 
@@ -45,33 +73,5 @@
 				<input type="reset" value="Limpar">
 			</form>
 		</div>
-
-		<?php
-
-			if(isset($_POST['salvar_paciente_btn'])) {
-				unset($_SESSION['status_cadastro_paciente']);
-
-				if(empty($_POST["cpf"])) {
-					$_SESSION['erro_cadastro_paciente'] = "Informe um CPF";
-					header("location:cadastrar_paciente.php");
-				}
-
-				$paciente = new Paciente();
-				
-				$paciente->setCpf($_POST["cpf"]);
-				$paciente->setNomeCompleto($_POST["nome_completo"]);
-				$paciente->setDataAniversario($_POST["data_aniversario"]);
-				$paciente->setTelefone($_POST["telefone"]);
-				$paciente->setEmail($_POST["email"]);
-				$paciente->setTipoSanguineo($_POST["tipo_sanguineo"]);
-				$paciente->setAlergias($_POST["alergias"]);
-				$paciente->setPlanoSaude($_POST["plano_saude"]);
-				$paciente->setProntuario(htmlspecialchars($_POST["prontuario"]));
-
-				Database::salvarPaciente($paciente);
-
-				$_SESSION['status_cadastro_paciente'] = "Paciente ".$paciente->getCpf()." cadastrado com sucesso";
-			}
-		?>
 	</body>
 </html>
