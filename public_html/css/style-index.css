@@ -21,12 +21,13 @@ body div {
 
 #corpoIndex{
     font-family: Arial, Helvetica, sans-serif;
-    background-image: url('fundo.jpg');
+    background-image: url('../img/fundo.jpg');
     background-size: 1500px 1000px;
 }
 
 #formIndex{
     border: 3px solid #f1f1f1;
+	padding: 10px;
 }
 
 #conteudo_principal {
@@ -43,14 +44,11 @@ form input, textarea{
 #login{
     text-align: center;
     display: block;
-    position:relative;
-    left:50%;
-    top:10%;
     height: 120px;
     width: 200px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    transform: translate(-50%, -50%);
+    margin: 20px auto;
+    object-fit: contain;
+    max-width: 90%;
 }
 
 .fontUser{
