@@ -1,5 +1,16 @@
+
+html {
+    margin: 20px 20px 100px;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 body div {
 	float: left;
+    border-radius: 10px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.34);
 }
 
 #login_box {
@@ -20,14 +31,44 @@ body div {
 }
 
 #conteudo_principal {
-	padding: 1%;
-	width: 70%;
+    padding: 21px 3%;
+    width: 66%;
 	background-color: #eaeaea;
 }
 
 form input, textarea{
     width: 100%;
     margin: 2px;
+    font-size: 18px;
+    font-family: arial, sans-serif;
+    padding: 5px 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit], input[type=reset] {
+    box-shadow: 0 0 25px inset rgba(0, 0, 0, 0.17);
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 11px;
+}
+
+input[type=submit] {
+	background-color: rgb(166, 207, 242);
+    float: right;
+    width: 150px;
+}
+input[type=submit]:hover {
+	background-color: rgb(87, 193, 255);
+}
+
+input[type=reset] {
+	background-color: rgb(245, 143, 143);
+	float: left;
+    width: 120px;
+}
+input[type=reset]:hover {
+	background-color: rgb(253, 114, 92);
 }
 
 .input_login {
@@ -48,12 +89,13 @@ form input, textarea{
     color: green;
 }
 
-.menu-lateral 
-{
-    width: 25%;
+.menu-lateral {
+    width: 24%;
 	float: left;
 	text-align: center;
-	margin-right: 10px;
+	margin-right: 27px;
+    padding: 21px 0;
+    background-color: #d5e6ff;
 }
 
 .menu-lateral a {
@@ -61,10 +103,12 @@ form input, textarea{
     color: black;
     background-color: #d5e6ff;
     padding: 15px;
+	text-decoration: none;
 }
 
 .menu-lateral a:hover {
     background-color: #eff5ff;
+	box-shadow: 0 0 4px inset rgba(0, 0, 0, 0.1);
 }
 
 .menu-lateral a.active {
@@ -80,10 +124,11 @@ form input, textarea{
 #pacientes td, #pacientes th {
     border: 1px solid black;
     padding: 2px;
+    text-align: center;
+    padding: 10px 0px;
 }
 
 #pacientes th {
-    text-align: left;
     background-color: #c3c3c3;
     color: black;
 }
@@ -93,6 +138,5 @@ form input, textarea{
 }
 
 #formulario_consulta_paciente {
-    border: 1px solid black;
     padding: 15px;
 }

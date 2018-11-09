@@ -10,6 +10,8 @@
 		if(isset($_SESSION['usuario_logado'])) {
 			$usuarioLogado = unserialize($_SESSION['usuario_logado']);
 
+			echo "<a href='home.php'>Início</a>";
+			
 			if($usuarioLogado->getCargo() == 'enfermeiro-chefe') {
 				echo "<a href='cadastrar_paciente.php' >Cadastrar Paciente</a>";
 			}

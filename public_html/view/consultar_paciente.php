@@ -13,17 +13,16 @@
 		$cpf = preg_replace("/[^0-9]/", "", $_GET['cpf']);
 	}
 	
+	$statusAtualizarPaciente = "";
+	if(isset($_POST['editar_paciente_btn']) && isset($_POST['prontuario']) && !empty($cpf)) {
+		Database::atualizarProntuarioPaciente($cpf, htmlspecialchars($_POST['prontuario']));
+
+		$statusAtualizarPaciente = 'Paciente atualizado com sucesso';
+	}
+	
 	$paciente = null;
 	if(!empty($cpf)) {
 		$paciente = PacienteDAO::consultarPacientePorCpf($cpf);
-	}
-	
-	$statusAtualizarPaciente = "";
-	
-	if(isset($_POST['editar_paciente_btn']) && isset($_POST['prontuario']) && $paciente != null) {
-		Database::atualizarProntuarioPaciente($paciente->getCpf(), htmlspecialchars($_POST['prontuario']));
-
-		$statusAtualizarPaciente = 'Paciente atualizado com sucesso';
 	}
 ?>
 <!DOCTYPE html>
