@@ -17,7 +17,6 @@
         session_start(); 
     }
 	
-	require_once '../dao/Database.php';
 	unset($_SESSION['usuario_logado']);
 ?>
 <!DOCTYPE html>
@@ -41,10 +40,6 @@
 				
 				<p><input id="input" type="submit" value="Login" name="login_btn"></p>
 			</form>
-
-			<?php
-				Database::inicializarTabelaUsuario();
-			?>
 		</div>
 	</body>
 </html>

@@ -3,7 +3,6 @@
         session_start(); 
     }
 	
-	require_once '../dao/Database.php';
 	require_once '../model/Paciente.php';
 	require_once '../dao/PacienteDAO.php';
 	
@@ -17,7 +16,9 @@
 		else {
 			$paciente = new Paciente();
 			
-			$paciente->setCpf($_POST["cpf"]);
+			$cpf = preg_replace("/[^a-zA-Z0-9]+/", "", $_POST['cpf']);
+			
+			$paciente->setCpf($cpf);
 			$paciente->setNomeCompleto($_POST["nome_completo"]);
 			$paciente->setDataAniversario($_POST["data_aniversario"]);
 			$paciente->setTelefone($_POST["telefone"]);
@@ -59,7 +60,7 @@
 					}
 				?>
 
-				<p>CPF: <input type="text" name="cpf" maxlength="11" /> </p>
+				<p>CPF: <input type="text" name="cpf" maxlength="11" required /> </p>
 				<p>Nome completo: <input type="text" name="nome_completo" /> </p>
 				<p>Data de aniversário: <input type="text" name="data_aniversario" /> </p>
 				<p>Telefone: <input type="text" name="telefone" /> </p>

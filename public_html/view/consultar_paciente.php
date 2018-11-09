@@ -3,19 +3,18 @@
         session_start(); 
     }
 	
-	require_once '../dao/Database.php';
 	require_once '../model/Paciente.php';
 	require_once '../dao/PacienteDAO.php';
 	
 	$cpf = "";
 	
 	if(isset($_GET['cpf'])) {
-		$cpf = preg_replace("/[^0-9]/", "", $_GET['cpf']);
+		$cpf = preg_replace("/[^a-zA-Z0-9]+/", "", $_GET['cpf']);
 	}
 	
 	$statusAtualizarPaciente = "";
 	if(isset($_POST['editar_paciente_btn']) && isset($_POST['prontuario']) && !empty($cpf)) {
-		Database::atualizarProntuarioPaciente($cpf, htmlspecialchars($_POST['prontuario']));
+		PacienteDAO::atualizarProntuarioPaciente($cpf, htmlspecialchars($_POST['prontuario']));
 
 		$statusAtualizarPaciente = 'Paciente atualizado com sucesso';
 	}

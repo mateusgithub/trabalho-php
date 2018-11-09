@@ -3,18 +3,18 @@
         session_start(); 
     }
 	
-	require_once '../dao/Database.php';
+	require_once '../dao/UsuarioDAO.php';
 
 	if(isset($_POST['login_btn'])){
 		unset($_SESSION['erro_login']);
 		unset($_SESSION['erro_cadastro_paciente']);
 		unset($_SESSION['erro_cadastro_medico']);
 
-		$usuario = $_POST["usuario"];
+		$usuario = preg_replace("/[^a-zA-Z0-9]+/", "", $_POST["usuario"]);
 		$senha = $_POST["senha"];
 
-		if(Database::validarLogin($usuario, $senha)) {
-			$usuarioLogado = Database::buscarUsuario($usuario);
+		if(UsuarioDAO::validarLogin($usuario, $senha)) {
+			$usuarioLogado = UsuarioDAO::buscarUsuario($usuario);
 			$_SESSION['usuario_logado'] = serialize($usuarioLogado);
 			header("location:../view/home.php");
 		} else {

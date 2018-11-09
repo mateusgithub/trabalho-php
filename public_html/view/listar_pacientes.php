@@ -3,7 +3,6 @@
         session_start(); 
     }
 	
-	require_once '../dao/Database.php';
 	require_once '../model/Paciente.php';
 	require_once '../dao/PacienteDAO.php';
 ?>
@@ -36,7 +35,7 @@
 					<th>Prontuário</th>
 				</tr>
 				<?php
-					$pacientes = Database::listarPacientes();
+					$pacientes = PacienteDAO::listarPacientes();
 
 					foreach ($pacientes as $paciente) {
 						echo "<tr>";

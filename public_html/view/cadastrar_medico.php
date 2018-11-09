@@ -3,26 +3,36 @@
         session_start(); 
     }
 	
-	require_once '../dao/Database.php';
-	require_once '../model/Paciente.php';
+	require_once '../model/Usuario.php';
+	require_once '../dao/MedicoDAO.php';
 	
 	$statusCadastroMedico = "";
 	$erroCadastroMedico = "";
 	if(isset($_POST['salvar_medico_btn'])) {
-		if(empty($_POST["cpf"])) {
-			$erroCadastroMedico = "Informe um CPF";
+		if(empty($_POST["usuario"])) {
+			$erroCadastroMedico = "Informe um nome de usuário";
+		}
+		else if(empty($_POST["senha"])) {
+			$erroCadastroMedico = "Informe uma senha";
 		}
 		else {
-			$usuarioMedico = new Usuario();
+			$usuario = preg_replace("/[^a-zA-Z0-9]+/", "", $_POST['usuario']);
 			
-			$usuarioMedico->setCpf($_POST["cpf"]);
-			$usuarioMedico->setNome($_POST["nome_completo"]);
-			$usuarioMedico->setUsuario($_POST["usuario"]);
-			$usuarioMedico->setSenha($_POST["senha"]);
+			if($usuario == "admin") {
+				$erroCadastroMedico = "Nome de usuário inválido";
+			}
+			else{
+				$usuarioMedico = new Usuario();
+				
+				$usuarioMedico->setCpf($_POST["cpf"]);
+				$usuarioMedico->setNome($_POST["nome_completo"]);
+				$usuarioMedico->setUsuario($usuario);
+				$usuarioMedico->setSenha($_POST["senha"]);
 
-			Database::salvarUsuarioMedico($usuarioMedico);
+				MedicoDAO::salvarUsuarioMedico($usuarioMedico);
 
-			$statusCadastroMedico = "Médico ".$usuarioMedico->getCpf()." cadastrado com sucesso";
+				$statusCadastroMedico = "Médico ".$usuarioMedico->getCpf()." cadastrado com sucesso";
+			}
 		}
 	}
 ?>
@@ -53,8 +63,8 @@
 
 				<p>CPF: <input type="text" name="cpf" maxlength="11" /> </p>
 				<p>Nome: <input type="text" name="nome_completo" /> </p>
-				<p>Usuário: <input type="text" name="usuario" /> </p>
-				<p>Senha: <input type="password" name="senha" /> </p>
+				<p>Usuário: <input type="text" name="usuario" required /> </p>
+				<p>Senha: <input type="password" name="senha" required /> </p>
 
 				<input type="submit" name="salvar_medico_btn" value="Cadastrar"/>
 				<input type="reset" value="Limpar">
