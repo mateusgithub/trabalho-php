@@ -15,7 +15,8 @@ body div {
 }
 
 #login_box h1 {
-	text-align: center;
+    text-align: center;
+    background: #4CAF50;
 }
 
 #conteudo_principal {
@@ -30,7 +31,13 @@ form input, textarea{
 }
 
 .input_login {
-	width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
 }
 
 .mensagem-erro {
