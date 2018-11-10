@@ -23,7 +23,7 @@
 			<?php
 				$usuarioLogado = unserialize($_SESSION['usuario_logado']);
 				echo "<h2>Bem vindo, ".$usuarioLogado->getUsuario()."</h2><hr>";
-				echo "<p>Cargo: ".$usuarioLogado->getCargo()."</h2>";
+				echo "<p>Cargo: ".$usuarioLogado->getCargo()."</p>";
 			?>
 		</div>
 	</body>

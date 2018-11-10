@@ -58,7 +58,7 @@
 
 		<div id="conteudo_principal">
 			<h2>Cadastrar paciente</h2><hr>
-			<form id="formulario_paciente" action="" method="POST">
+			<form id="formulario_paciente" action="cadastrar_paciente.php" method="POST">
 				<?php
 					if(!empty($erroCadastroPaciente)) {
 						echo "<p class='mensagem-erro'>".$erroCadastroPaciente."</p>";

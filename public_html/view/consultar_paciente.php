@@ -48,7 +48,7 @@
 		<div id="conteudo_principal">
 			<h2>Consultar pacientes</h2><hr>
 
-			<form id="formulario_consulta_paciente" action="" method="GET">
+			<form id="formulario_consulta_paciente" action="consultar_paciente.php" method="GET">
 				<p>Informe o CPF: <input type="text" name="cpf" id="cpf_field" maxlength="11" value="<?php echo $cpf;?>"> </p>
 				<script>document.getElementById("cpf_field").focus();</script>
 				<input type="submit" value="Consultar" />
@@ -65,7 +65,7 @@
 			<?php
 			if($paciente != null) {
 			?>
-			<form id="formulario_editar_paciente" action="" method="POST">
+			<form id="formulario_editar_paciente" action="consultar_paciente.php" method="POST">
 				<p>CPF: <input type="text" maxlength="11" value="<?php echo $paciente->getCpf();?>" disabled /> </p>
 
 				<p>Nome completo: <input type="text" value="<?php echo $paciente->getNomeCompleto();?>" disabled /> </p>
