@@ -1,1 +1,0 @@
-as imagens e o style estão na pasta view. Por um motivo muito estranho, o link não consegue chamar arquivos fora da pasta, mesmo alterando a chamada do href do link. Provisoriamente deixei os arquivos na view mesmo, para não perder muito tempo.
