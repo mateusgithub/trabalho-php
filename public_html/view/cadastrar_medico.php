@@ -3,8 +3,34 @@
         session_start(); 
     }
 	
+	require_once '../model/Usuario.php';
 	require_once '../dao/Database.php';
 	require_once '../model/Paciente.php';
+
+	if(!isset($_SESSION['usuario_logado']) || (unserialize($_SESSION['usuario_logado'])->getCargo() != 'enfermeiro-chefe')) {
+		echo '<h2>Erro: Usuário não tem permissão para realizar esta operação.</h2>';
+		exit();
+	}
+
+	$statusCadastroMedico = "";
+	$erroCadastroMedico = "";
+	
+	if(isset($_POST['salvar_medico_btn'])) {
+		if(empty($_POST["usuario"])) {
+			$erroCadastroMedico = "Informe um Usuário";
+		} else {
+			$usuarioMedico = new Usuario();
+			
+			$usuarioMedico->setCpf($_POST["cpf"]);
+			$usuarioMedico->setNome($_POST["nome_completo"]);
+			$usuarioMedico->setUsuario($_POST["usuario"]);
+			$usuarioMedico->setSenha($_POST["senha"]);
+
+			Database::salvarUsuarioMedico($usuarioMedico);
+			$statusCadastroMedico = "Médico ".$usuarioMedico->getNome()." cadastrado com sucesso";
+		}
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -22,11 +48,12 @@
 		<div id="conteudo_principal">
 			<h2>Cadastrar médico</h2><hr>
 			<form id="formulario_medico" action="" method="POST">
-				<?php 
-					if(isset($_SESSION['erro_cadastro_medico'])) {
-						echo "<p style='color: red;'>".$_SESSION['erro_cadastro_medico']."</p>";
-					} else {
-						echo "<p style='color: red;'></p>";
+				<?php
+					if(!empty($erroCadastroMedico)) {
+						echo "<p class='mensagem-erro'>".$erroCadastroMedico."</p>";
+					}
+					if(!empty($statusCadastroMedico)) {
+						echo "<p class='mensagem-sucesso'>".$statusCadastroMedico."</p>";
 					}
 				?>
 
@@ -39,26 +66,5 @@
 				<input type="reset" value="Limpar">
 			</form>
 		</div>
-
-		<?php
-
-			if(isset($_POST['salvar_medico_btn'])) {
-				unset($_SESSION['erro_cadastro_medico']);
-
-				if(empty($_POST["cpf"])) {
-					$_SESSION['erro_cadastro_medico'] = "Informe um usuário";
-					header("location:cadastrar_medico.php");
-				}
-
-				$usuarioMedico = new Usuario();
-				
-				$usuarioMedico->setCpf($_POST["cpf"]);
-				$usuarioMedico->setNome($_POST["nome_completo"]);
-				$usuarioMedico->setUsuario($_POST["usuario"]);
-				$usuarioMedico->setSenha($_POST["senha"]);
-
-				Database::salvarUsuarioMedico($usuarioMedico);
-			}
-		?>
 	</body>
 </html>

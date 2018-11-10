@@ -6,6 +6,13 @@
 	require_once '../dao/Database.php';
 	require_once '../model/Paciente.php';
 	require_once '../dao/PacienteDAO.php';
+	require_once '../model/Usuario.php';
+
+	if(!isset($_SESSION['usuario_logado']) || (unserialize($_SESSION['usuario_logado'])->getCargo() != 'enfermeiro-chefe')) {
+		echo '<h2>Erro: Usuário não tem permissão para realizar esta operação.</h2>';
+		exit();
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -21,7 +28,8 @@
 		?>
 
 		<div id="conteudo_principal">
-			<h2>Listar pacientes</h2><hr>
+			<h2>Listar pacientes</h2>
+			<hr>
 
 			<table id="pacientes">
 				<tr>

@@ -9,7 +9,8 @@
 
 		if(isset($_SESSION['usuario_logado'])) {
 			$usuarioLogado = unserialize($_SESSION['usuario_logado']);
-
+			
+			//echo basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
 			if($usuarioLogado->getCargo() == 'enfermeiro-chefe') {
 				echo "<a href='cadastrar_paciente.php' >Cadastrar Paciente</a>";
 			}

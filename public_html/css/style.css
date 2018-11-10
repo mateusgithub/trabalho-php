@@ -1,5 +1,6 @@
 body div {
 	float: left;
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace; 
 }
 
 #login_box {
@@ -22,6 +23,7 @@ body div {
 	padding: 1%;
 	width: 70%;
 	background-color: #eaeaea;
+    overflow-x:auto;
 }
 
 form input, textarea{
@@ -41,8 +43,7 @@ form input, textarea{
     color: green;
 }
 
-.menu-lateral 
-{
+.menu-lateral {
     width: 25%;
 	float: left;
 	text-align: center;
@@ -50,6 +51,7 @@ form input, textarea{
 }
 
 .menu-lateral a {
+    text-decoration: none;
     display: block;
     color: black;
     background-color: #d5e6ff;
@@ -88,4 +90,35 @@ form input, textarea{
 #formulario_consulta_paciente {
     border: 1px solid black;
     padding: 15px;
+    border-radius: 5px;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 6px 6px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #757575;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4c80af;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type=reset] {
+    width: 100%;
+    background-color: #828184;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
