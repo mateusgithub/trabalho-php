@@ -3,8 +3,12 @@
         session_start(); 
     }
 	
+	require_once '../model/Usuario.php';
 	if(!isset($_SESSION['usuario_logado'])) {
 		header("location:../view/index.php");
+	}
+	else if(unserialize($_SESSION['usuario_logado'])->getCargo() != 'enfermeiro-chefe') {
+		header("location:../view/home.php");
 	}
 	
 	require_once '../model/Paciente.php';
