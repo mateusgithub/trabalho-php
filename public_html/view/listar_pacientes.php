@@ -30,19 +30,20 @@
 		<div id="conteudo_principal">
 			<h2>Listar pacientes</h2><hr>
 
-			<table id="pacientes">
-				<tr>
-					<th>CPF</th>
-					<th>Nome</th>
-					<th>Aniverário</th>
-					<th>Telefone</th>
-					<th>Email</th>
-					<th>Tipo sanguíneo</th>
-					<th>Alergias</th>
-					<th>Plano de saúde</th>
-					<th>Prontuário</th>
-				</tr>
-				<?php
+			<div style="overflow-x: auto; width: 100%; padding: 5px">
+				<table id="pacientes">
+					<tr>
+						<th>CPF</th>
+						<th>Nome</th>
+						<th>Aniverário</th>
+						<th>Telefone</th>
+						<th>Email</th>
+						<th>Tipo sanguíneo</th>
+						<th>Alergias</th>
+						<th>Plano de saúde</th>
+						<th>Prontuário</th>
+					</tr>
+					<?php
 					$pacientes = PacienteDAO::listarPacientes();
 
 					foreach ($pacientes as $paciente) {
@@ -58,9 +59,10 @@
 							echo "<td>".$paciente->getProntuario()."</td>";
 						echo "</tr>";
 					}
-				?>
+					?>
 
-			</table>
+				</table>
+			</div>
 		</div>
 	</body>
 </html>
