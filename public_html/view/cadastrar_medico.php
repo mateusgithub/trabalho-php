@@ -61,7 +61,8 @@
 					}
 				?>
 
-				<p>CPF: <input type="text" name="cpf" maxlength="11" /> </p>
+				<p>CPF: <input type="text" name="cpf" id="cpf_field" maxlength="11" /> </p>
+				<script>document.getElementById("cpf_field").focus();</script>
 				<p>Nome: <input type="text" name="nome_completo" /> </p>
 				<p>Usuário: <input type="text" name="usuario" required /> </p>
 				<p>Senha: <input type="password" name="senha" required /> </p>

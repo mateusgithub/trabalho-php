@@ -60,7 +60,8 @@
 					}
 				?>
 
-				<p>CPF: <input type="text" name="cpf" maxlength="11" required /> </p>
+				<p>CPF: <input type="text" name="cpf" id="cpf_field" maxlength="11" required /> </p>
+				<script>document.getElementById("cpf_field").focus();</script>
 				<p>Nome completo: <input type="text" name="nome_completo" /> </p>
 				<p>Data de aniversário: <input type="text" name="data_aniversario" /> </p>
 				<p>Telefone: <input type="text" name="telefone" /> </p>

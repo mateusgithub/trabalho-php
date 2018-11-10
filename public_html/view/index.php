@@ -24,15 +24,16 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="../css/style-index.css">
+		<link rel="stylesheet" type="text/css" href="../css/style-index.css?v=0">
 	 	<title>Trabalho 3 - Login</title>
 	</head>
 	<body id="corpoIndex">	
 		<div id="login_box">
-			<img id="login" src="../img/login.jpg" alt="imagem de login"/>
+			<div class="login-logo"></div>
 			<form id="formIndex" action="../controller/login.php" method="POST">
 				<p class="fontUser">Usuário</p>
-				<input class="input_login" placeholder="Entre com o username" type="text" name="usuario" required>
+				<input class="input_login" placeholder="Entre com o username" type="text" name="usuario" id="user_field" required>
+				<script>document.getElementById("user_field").focus();</script>
 				<p class="fontUser">Senha</p>
 				<input class="input_login" placeholder="Entre com a senha" type="password" name="senha" required>
 

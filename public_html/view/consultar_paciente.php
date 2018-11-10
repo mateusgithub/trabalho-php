@@ -41,7 +41,8 @@
 			<h2>Consultar pacientes</h2><hr>
 
 			<form id="formulario_consulta_paciente" action="" method="GET">
-				<p>Informe o CPF: <input type="text" name="cpf" maxlength="11" value="<?php echo $cpf;?>"> </p>
+				<p>Informe o CPF: <input type="text" name="cpf" id="cpf_field" maxlength="11" value="<?php echo $cpf;?>"> </p>
+				<script>document.getElementById("cpf_field").focus();</script>
 				<input type="submit" value="Consultar" />
 			</form>
 
@@ -81,6 +82,11 @@
 
 				<input type="submit" name="editar_paciente_btn" value="Salvar">
 			</form>
+			<?php
+			}
+			else {
+			?>
+			<p>Nenhum paciente selecionado</p>
 			<?php
 			}
 			?>
