@@ -3,6 +3,10 @@
         session_start(); 
     }
 	
+	if(!isset($_SESSION['usuario_logado'])) {
+		header("location:../view/index.php");
+	}
+	
 	require_once '../model/Paciente.php';
 	require_once '../dao/PacienteDAO.php';
 ?>

@@ -1,0 +1,4 @@
+<Files "menu_lateral.php">
+Order Allow,Deny
+Deny from all
+</Files>

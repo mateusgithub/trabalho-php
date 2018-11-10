@@ -2,6 +2,10 @@
 	if(!isset($_SESSION)) { 
         session_start(); 
     }
+	
+	if(!isset($_SESSION['usuario_logado'])) {
+		header("location:../view/index.php");
+	}
 ?><!DOCTYPE html>
 <html lang="pt-br">
 	<head>
