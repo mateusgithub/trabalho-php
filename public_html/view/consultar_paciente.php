@@ -65,7 +65,7 @@
 			<?php
 			if($paciente != null) {
 			?>
-			<form id="formulario_editar_paciente" action="consultar_paciente.php" method="POST">
+			<form id="formulario_editar_paciente" action="consultar_paciente.php?cpf=<?php echo $paciente->getCpf();?>" method="POST">
 				<p>CPF: <input type="text" maxlength="11" value="<?php echo $paciente->getCpf();?>" disabled /> </p>
 
 				<p>Nome completo: <input type="text" value="<?php echo $paciente->getNomeCompleto();?>" disabled /> </p>
